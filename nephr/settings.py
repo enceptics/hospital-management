@@ -2,6 +2,7 @@
 
 from pathlib import Path
 import dj_database_url
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,7 +20,7 @@ SECRET_KEY = 'django-insecure-c!+v0y3s*q@r-7exqe&0n25il^lqj!%^(-@(a%v^03z^ncyi#e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost:8000','https://hospital-management-hi3y.onrender.com']
 
 
 # Application definition
@@ -83,20 +84,22 @@ WSGI_APPLICATION = 'OpdManagement.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
 
-#     }
+    }
+}
+
+# DATABASES = {
+#     "default": dj_database_url.parse(
+#         "postgres://hospital_dlkm_user:TWXI5oWAHtL0gyOzg3zyP7yLEJFAjqoV@dpg-cvi69opu0jms738fdr10-a.oregon-postgres.render.com/hospital_dlkm"
+#     )
 # }
 
 DATABASES = {
-    'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        default='postgresql://hospital_dlkm_user:TWXI5oWAHtL0gyOzg3zyP7yLEJFAjqoV@dpg-cvi69opu0jms738fdr10-a.oregon-postgres.render.com/hospital_dlkm',
-        conn_max_age=600
-    )
+    "default": dj_database_url.parse("postgres://hospital_dlkm_user:TWXI5oWAHtL0gyOzg3zyP7yLEJFAjqoV@dpg-cvi69opu0jms738fdr10-a.oregon-postgres.render.com/hospital_dlkm")
 }
 
 
@@ -169,8 +172,8 @@ RAZORPAY_API_SECRET_KEY='N0kHcCLagthKdQXP4PDf4EfH'
 #Email Configurations
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT=587
-EMAIL_HOST_USER= ''
-EMAIL_HOST_PASSWORD= ''
+EMAIL_HOST_USER= 'intellima.tech@gmail.com'
+EMAIL_HOST_PASSWORD= 'txqerssmxheiyruz'
 EMAIL_USE_TLS=True
 SESSION_EXPIRE_SECONDS = 86400
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
