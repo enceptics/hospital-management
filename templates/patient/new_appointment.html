@@ -1,108 +1,260 @@
 {% extends 'admin1/base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
+
+{% block head_block %}
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* --- General Variables and Fonts --- */
+        :root {
+            --primary-blue: #4a90e2;
+            --info-cyan: #17a2b8;
+            --danger-red: #dc3545;
+            --text-dark: #34495e;
+            --text-muted: #95a5a6;
+            --text-light: #ffffff;
+            --bg-light: #f4f6f9;
+            --card-bg: #ffffff;
+            --border-light: #e0e0e0;
+            --shadow-light: rgba(0, 0, 0, 0.08);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+            --border-radius: 1.5rem;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        /* --- Page Layout --- */
+        .page-wrapper {
+            padding: 2.5rem 1rem;
+        }
+        
+        .content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* --- Main Card Container --- */
+        .main-card {
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 40px var(--shadow-light);
+            padding: 2.5rem;
+            background-color: var(--card-bg);
+        }
+
+        /* --- Page Header --- */
+        .page-header {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+        
+        /* --- Button Group --- */
+        .button-group-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+
+        .button-group-container .btn {
+            border-radius: 0.75rem;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            color: var(--text-light);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .button-group-container .btn i {
+            margin-right: 0.5rem;
+        }
+        
+        /* Specific Button Colors */
+        .btn-info { background-color: var(--info-cyan); border-color: var(--info-cyan); }
+        .btn-info:hover { background-color: #117a8b; border-color: #117a8b; transform: translateY(-2px); }
+
+        .btn-primary { background-color: var(--primary-blue); border-color: var(--primary-blue); }
+        .btn-primary:hover { background-color: #357bd1; border-color: #357bd1; transform: translateY(-2px); }
+
+        .btn-danger { background-color: var(--danger-red); border-color: var(--danger-red); }
+        .btn-danger:hover { background-color: #c82333; border-color: #c82333; transform: translateY(-2px); }
+
+        /* --- Form Styling --- */
+        .appointment-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem 1.5rem; /* Row gap, column gap */
+        }
+        
+        .appointment-form .form-group {
+            flex: 1 1 calc(50% - 1.5rem); /* Two columns layout */
+            margin: 0; /* Remove default margin from form-group */
+        }
+        
+        /* Make fields full width on small screens */
+        @media (max-width: 768px) {
+            .appointment-form .form-group {
+                flex: 1 1 100%;
+            }
+        }
+        
+        .appointment-form label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .appointment-form .form-control,
+        .appointment-form select.form-control {
+            border: 1px solid var(--border-light);
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            background-color: var(--bg-light);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .appointment-form .form-control:focus,
+        .appointment-form select.form-control:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
+            background-color: var(--card-bg);
+            outline: none;
+        }
+        
+        .appointment-form .asteriskField {
+            color: var(--danger-red);
+            margin-left: 5px;
+        }
+
+        .appointment-form input[type="submit"] {
+            width: auto;
+            padding: 0.8rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: var(--primary-blue);
+            color: var(--text-light);
+        }
+        
+        .appointment-form input[type="submit"]:hover {
+            background-color: #357bd1;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .submit-btn-container {
+            flex: 1 1 100%; /* Take full width */
+            margin-top: 1rem;
+            text-align: right;
+            padding-right: 1.5rem;
+        }
+
+        .main-form-section {
+            padding-right: 3rem;
+        }
+
+    </style>
+{% endblock %}
+
 {% block body_block %}
-<!--Main Content-->
 <div class="page-wrapper">
     <div class="content">
-      {% if choose_doctor %}
-      {{form.as_p}}
-
-      {% else %}
-      <style>
-        #id_mobile_number::placeholder strong {
-        font-weight: bold;
-      }
-
-      </style>
+        {% if choose_doctor %}
+            {# This block seems to be a placeholder for another form, so I'll leave it as is, but it could also be styled. #}
+            {{ form.as_p }}
+        {% else %}
         
-        <div class="new_appointment_style">
-          <div class="row clearfix">
-              <div class="col-lg-12 col-md-12 col-sm-8 col-xs-8">
-                <div class="icon-button-demo">&nbsp;
-                  <a href="/reports" class="btn btn-info"> <i class="fa fa-arrow-circle-left">&nbsp;Back</i></a>
-                  <button type="button" class="btn btn-primary" onClick="window.location.reload();">
-                      <i class="fas fa-sync-alt">&nbsp;Refresh</i></button>&nbsp;
-                  <a href="/dashboard" class="btn btn-danger"> <i class="fas fa-times-circle">&nbsp;Exit</i></a>
-              </div><br>
-              <div class='card' style="padding-top: 20px;">
-                <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create New Appointment</h3>
-                <br>
-                <div class="container" style="padding-right: 200px;">
-                <form method="POST" >
-                  {% csrf_token %}
-                  <div class="form-row ">
-                    <div class="form-group col-md-4 font-weight-bold">
-                      <label for="id_mobile_number" class=" requiredField ">First Name<span class="asteriskField">*</span></label>   
-                          <div>    
-                            <input type="text" name="first_name" maxlength="200" class="font-weight-bold form-control border border-secondary"  required id="patient">  
-                          </div>
-                    </div>
-                    <div class="form-group col-md-4 font-weight-bold">
-                      <label class="requiredField ">Middle Name<span class="asteriskField">*</span></label>   
-                      <div >    
-                        <input type="text" name="middle_name" maxlength="200" class="font-weight-bold form-control border border-secondary"  id="patient">  
-                      </div>
-                    </div>
-                    <div class="form-group col-md-4 font-weight-bold">
-                      <label class="requiredField ">last Name<span class="asteriskField">*</span></label>   
-                      <div>    
-                        <input type="text" name="last_name" maxlength="200" class="font-weight-bold form-control border border-secondary" id="patient">  
-                      </div>
-                    </div>
-                    <div class="form-group col-md-6 font-weight-bold">
-                      <label class="requiredField ">Email ID<span class="asteriskField">*</span></label>   
-                      <div>    
-                        <input type="text" name="email_id" maxlength="200" class="font-weight-bold form-control border border-secondary"  required id="patient">  
-                      </div>
-                    </div>
-                    <div class="form-group col-md-6 font-weight-bold">
-                      <label class="requiredField ">Age<span class="asteriskField">*</span></label>   
-                      <div>    
-                        <input type="text" name="age" maxlength="200" class="font-weight-bold form-control border border-secondary" required id="patient">  
-                      </div>
-                    </div>
-                    <div class="form-group col-md-6 font-weight-bold">
-                      <label class="requiredField ">Gender<span class="asteriskField">*</span></label>   
-                      <div>    
-                        <select name="gender" class="font-weight-bold form-control border border-secondary">
-                          <option value="Male">Male</option>
-                          <option value="Female">Female</option>
-                          <option value="Others">Others</option>
-
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-group col-md-6 font-weight-bold">
-                      <div id="div_id_mobile_number" class="form-group fw-bold">
-                        <label for="id_mobile_number" class=" requiredField ">Mobile number<span class="asteriskField">*</span></label>   
-                          <div>    
-                            <input type="tel" name="mobile_number" maxlength="200" pattern="\+\d{1,3}\s\d{6,14}" class="textinput textInput form-control font-weight-bold border border-secondary" value="+254" required id="id_mobile_number">  
-                          </div>
-                    </div>
-                    </div>
-                    
-                    <div class="form-group col-md-4 p-2 font-weight-bold"><br>
-                      <button type="submit" class="btn btn-primary btn-block">Submit</button>
-                    </div>
-                    
-                    
-                  
-                </form><br>
-              </div>
+        <div class="main-card">
+            
+            <div class="button-group-container">
+                <a href="/reports" class="btn btn-info"> <i class="fa fa-arrow-circle-left"></i> Back</a>
+                <button type="button" class="btn btn-primary" onClick="window.location.reload();">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+                <a href="/dashboard" class="btn btn-danger"> <i class="fas fa-times-circle"></i> Exit</a>
             </div>
-              </div>
-          </div><br><br><br><br><br><br><br><br><br><br><br>
+
+            <h3 class="page-header">Create New Appointment</h3>
+            
+            <div class="main-form-section">
+                <form method="POST" class="appointment-form">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="id_first_name">First Name<span class="asteriskField">*</span></label>
+                        <input type="text" name="first_name" maxlength="200" class="form-control" required id="id_first_name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_middle_name">Middle Name<span class="asteriskField">*</span></label>
+                        <input type="text" name="middle_name" maxlength="200" class="form-control" id="id_middle_name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_last_name">Last Name<span class="asteriskField">*</span></label>
+                        <input type="text" name="last_name" maxlength="200" class="form-control" id="id_last_name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_email_id">Email ID<span class="asteriskField">*</span></label>
+                        <input type="email" name="email_id" maxlength="200" class="form-control" required id="id_email_id">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_age">Age<span class="asteriskField">*</span></label>
+                        <input type="number" name="age" class="form-control" required id="id_age">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_gender">Gender<span class="asteriskField">*</span></label>
+                        <select name="gender" class="form-control" id="id_gender" required>
+                            <option value="" disabled selected>Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_mobile_number">Mobile number<span class="asteriskField">*</span></label>
+                        <input type="tel" name="mobile_number" maxlength="200" pattern="^(\+254|0)\d{9}$" placeholder="+2547XXXXXXXX" class="form-control" value="+254" required id="id_mobile_number">
+                    </div>
+                    
+                    <div class="submit-btn-container">
+                        <button type="submit" class="btn btn-primary">Create Appointment</button>
+                    </div>
+                </form>
+            </div>
         </div>
-      {% endif %}
-  </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}
+
 {% block script_block %}
-<!-- javacripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script src="{% static 'js/app.min.js' %}"></script>
 <script src="{% static 'js/table.min.js' %}"></script>
-<!-- Custom Js -->
 <script src="{% static 'js/admin.js' %}"></script>
 <script src="{% static 'js/tables/jquery-datatable.js' %}"></script>
-{% endblock  %}
+{% endblock %}

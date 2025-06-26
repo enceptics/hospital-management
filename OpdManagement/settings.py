@@ -83,17 +83,17 @@ WSGI_APPLICATION = 'OpdManagement.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-
-#     }
-# }
-
 DATABASES = {
-    "default": dj_database_url.parse("postgres://hospital_dlkm_user:TWXI5oWAHtL0gyOzg3zyP7yLEJFAjqoV@dpg-cvi69opu0jms738fdr10-a.oregon-postgres.render.com/hospital_dlkm")
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+
+    }
 }
+
+# DATABASES = {
+#     "default": dj_database_url.parse("postgres://hospital_dlkm_user:TWXI5oWAHtL0gyOzg3zyP7yLEJFAjqoV@dpg-cvi69opu0jms738fdr10-a.oregon-postgres.render.com/hospital_dlkm")
+# }
 
 
 
