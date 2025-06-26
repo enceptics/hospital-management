@@ -1,581 +1,590 @@
-{% extends 'clinical/base.html' %}
-{% load static %}
-{% block body_block %}
-         <!-- content -->
- <div class="page-wrapper">
-     <div class="content">
- <!-- Main Dashboard -->
- <input type="hidden" name="screen_id" value="SCR00040">
- <input type="hidden" name="message_id" value="MSG00040">
- <div class="row">
-     <div class="col-12">
-         <div class="card">
-             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding: 10px;">
-                 <div class="page-header row align-items-center">
-                   <h4 class="pageheader-title col-sm-4">Patient Visits</h4>
-                   <div class="col-sm-8 text-right d-flex align-items-center justify-content-end">
-                     <ul class="d-flex align-items-center" style="list-style: none;">
-                       <li class="pl-2 pr-2" style="color: #276b8c;"><strong>Reg No.: <span style="color: #524562;">116</span></strong></li>
-                       <li class="pl-2 pr-2" style="color: #276b8c;"><strong>Name: <span style="color: #524562;">Mr. Good Luck</span></strong></li>
-                       <li class="pl-2 pr-2" style="color: #276b8c;"><strong>Age/Gender: <span style="color: #524562;">23Y/M</span></strong></li>
-                       <li class="pl-2 pr-2"><img src="{% static 'assets/images/interface/dashboard/user_male.png' %}" alt="User" width="16px"></li>
-                       <li class="pl-2 pr-2"><div data-toggle="tooltip" data-placement="top" title="Tooltip on top"><i class="fa fa-info-circle" aria-hidden="true"></i></div></li>
-                     </ul>
-                   </div><!-- col-sm-8 -->
-                 </div>
-               </div>
-             </div>
-             <div class="nursing-assessment-tabs p-2 bg-white">
-               <div role="tabpanel">
-                 <!-- Nav tabs -->
-                 <ul class="nav nav-tabs nav-justified nav-tabs-dropdown " role="tablist">
-                   <li role="presentation" class="w-50">
-                     <a href="#profile" aria-controls="home" class=" btn-primary" role="tab" data-toggle="tab"><i class="fa fa-folder-open" aria-hidden="true"></i> Medical Records</a>
-                   </li>
-                   <li role="presentation" class="w-50"><a class="btn-primary active" href="#home" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-medkit" aria-hidden="true"></i> Consultation</a></li>
-                 </ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nursing Assessment</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+        }
+        .tab-button.active {
+            background-color: #1a56db; /* Primary blue for active tab */
+            color: white;
+        }
+        .tab-content.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-6 lg:p-8">
+    <div class="max-w-7xl mx-auto bg-white shadow-lg rounded-lg p-6 sm:p-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Nursing Assessment</h1>
 
-                 <!-- Tab panes -->
-                 <div class="tab-content">
+        <!-- Messages Section -->
+        {% if messages %}
+            <div class="mb-6">
+                {% for message in messages %}
+                    <div class="p-4 mb-2 text-sm rounded-md
+                                {% if message.tags == 'success' %}bg-green-100 text-green-700{% elif message.tags == 'error' %}bg-red-100 text-red-700{% else %}bg-blue-100 text-blue-700{% endif %}"
+                         role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
 
-                   <div role="tabpanel" class="tab-pane pt-2" id="profile">
-                     <div class="row inner-tabs no-gutters ">
-                       <div class="col-sm-3 pr-0">
-                         <ul id="nav-tabs-wrapper" class="nav nav-tabs nav-pills nav-stacked well">
-                           <li class="w-100"><a class="active show" href="#mrtab1" data-toggle="tab">Allergies</a></li>
-                           <li class="w-100"><a href="#mrtab2" data-toggle="tab">Immmunization</a></li>
-                           <li class="w-100"><a href="#mrtab3" data-toggle="tab">Health Issues</a></li>
-                           <li class="w-100"><a href="#mrtab4" data-toggle="tab">Diagnosis</a></li>
-                           <li class="w-100"><a href="#mrtab5" data-toggle="tab">Medications</a></li>
-                           <li class="w-100"><a href="#mrtab6" data-toggle="tab">Test Results</a></li>
-                           <li class="w-100"><a href="#mrtab7" data-toggle="tab">Medical History</a></li>
-                           <li class="w-100"><a href="#mrtab8" data-toggle="tab">Social History</a></li>
-                           <li class="w-100"><a href="#mrtab9" data-toggle="tab">Visit History</a></li>
-                           <li class="w-100"><a href="#mrtab10" data-toggle="tab">Clinical History</a></li>
-                           <li class="w-100"><a href="#mrtab11" data-toggle="tab">Patient Document</a></li>
-                         </ul>
-                       </div>
-                       <div class="col-sm-9 border">
-                         <div class="tab-content p-1">
-                           <div role="tabpanel" class="tab-pane" id="mrtab9">
-                             <h5 class="">Visit History</h5>
-                             <table class="table table-border">
-                               <tr style="background: #d1dae6;">
-                                 <th style="font-size: 11px;">Visit No </th>
-                                 <th style="font-size: 11px;">Visit Date</th>
-                                 <th style="font-size: 11px;">Doctro Name</th>
-                                 <th style="font-size: 11px;">Visit Summary</th>
-                                 <th style="font-size: 11px;">Prescription</th>
-                                 <th style="font-size: 11px;">Discharge Summary</th>
-                                 <th style="font-size: 11px;">Test Report</th>
-                               </tr>
-                               <tr>
-                                 <td colspan="">181</td>
-                                 <td colspan="">13/07/2019</td>
-                                 <td colspan="">General OPD</td>
-                                 <td colspan="">View</td>
-                                 <td colspan="">View</td>
-                                 <td colspan="">View</td>
-                                 <td colspan="">Lipid Profile! X-Ray</td>
-                               </tr>
-                               <tr>
-                                 <td colspan="">180</td>
-                                 <td colspan="">13/07/2019</td>
-                                 <td colspan="">General OPD</td>
-                                 <td colspan="">View</td>
-                                 <td colspan="">View</td>
-                                 <td colspan="">View</td>
-                                 <td colspan="">Lipid Profile! X-Ray</td>
-                               </tr>
-                             </table>
-                           </div>
+        <!-- Patient Details Section -->
+        <div class="bg-gray-50 p-4 rounded-md shadow-sm mb-6">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Patient Information</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="flex flex-col">
+                    <span class="text-sm font-medium text-gray-500">UHID:</span>
+                    <span class="text-gray-900 font-semibold">{{ uhid }}</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-sm font-medium text-gray-500">Patient Name:</span>
+                    <span class="text-gray-900 font-semibold">{{ patient_name }}</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-sm font-medium text-gray-500">Date of Birth:</span>
+                    <span class="text-gray-900 font-semibold">{{ dob }}</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-sm font-medium text-gray-500">Gender:</span>
+                    <span class="text-gray-900 font-semibold">{{ gender }}</span>
+                </div>
+            </div>
+        </div>
 
-                         </div>
-                       </div>
-                     </div>
-                   </div>
+        <!-- Tab Navigation -->
+        <div class="mb-6 border-b border-gray-200">
+            <nav class="-mb-px flex flex-wrap gap-2 sm:gap-0" aria-label="Tabs">
+                <button type="button" class="tab-button active inline-flex items-center justify-center p-3 border-b-2 border-transparent text-sm font-medium text-gray-600 hover:text-gray-800 hover:border-gray-300 rounded-t-md focus:outline-none transition duration-150 ease-in-out" data-tab="presenting-complaints">
+                    Presenting Complaints
+                </button>
+                <button type="button" class="tab-button inline-flex items-center justify-center p-3 border-b-2 border-transparent text-sm font-medium text-gray-600 hover:text-gray-800 hover:border-gray-300 rounded-t-md focus:outline-none transition duration-150 ease-in-out" data-tab="history-examination">
+                    History & Examination
+                </button>
+                <button type="button" class="tab-button inline-flex items-center justify-center p-3 border-b-2 border-transparent text-sm font-medium text-gray-600 hover:text-gray-800 hover:border-gray-300 rounded-t-md focus:outline-none transition duration-150 ease-in-out" data-tab="diagnosis">
+                    Diagnosis
+                </button>
+                <button type="button" class="tab-button inline-flex items-center justify-center p-3 border-b-2 border-transparent text-sm font-medium text-gray-600 hover:text-gray-800 hover:border-gray-300 rounded-t-md focus:outline-none transition duration-150 ease-in-out" data-tab="investigation-procedure">
+                    Investigation & Procedure
+                </button>
+                <button type="button" class="tab-button inline-flex items-center justify-center p-3 border-b-2 border-transparent text-sm font-medium text-gray-600 hover:text-gray-800 hover:border-gray-300 rounded-t-md focus:outline-none transition duration-150 ease-in-out" data-tab="prescription-medicine">
+                    Prescription Medicine
+                </button>
+                <button type="button" class="tab-button inline-flex items-center justify-center p-3 border-b-2 border-transparent text-sm font-medium text-gray-600 hover:text-gray-800 hover:border-gray-300 rounded-t-md focus:outline-none transition duration-150 ease-in-out" data-tab="advice">
+                    Advice
+                </button>
+                <button type="button" class="tab-button inline-flex items-center justify-center p-3 border-b-2 border-transparent text-sm font-medium text-gray-600 hover:text-gray-800 hover:border-gray-300 rounded-t-md focus:outline-none transition duration-150 ease-in-out" data-tab="medical-certificate">
+                    Medical Certificate
+                </button>
+            </nav>
+        </div>
 
-                   <div role="tabpanel" class="tab-pane active" id="home">
-                     <div class="row mt-2 no-gutters">
-                       <h5 class="col-sm-8">Treatments Details</h5>
-                       <div class="col-sm-4 text-right">
-                         <input type="checkbox" class="" id="customCheck1">
-                         <label class="" for="customCheck1"> Release</label>
-                         <button class="btn-primary border-0 p-2 icon-size ml-2" name="button" type="button"><i class="fa fa-save" aria-hidden="true"></i></button>
-                       </div>
-                     </div>
+        <!-- Tab Content -->
+        <div id="tab-content-container">
+            <!-- Presenting Complaints Tab -->
+            <div id="presenting-complaints" class="tab-content">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">Presenting Complaints</h2>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <input type="hidden" name="presenting_complaint_temp" value="PresentingComplaintTemp">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="presenting_comp" class="block text-sm font-medium text-gray-700">Presenting Complaint</label>
+                            <textarea id="presenting_comp" name="presenting_comp" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></textarea>
+                        </div>
+                        <div>
+                            <label for="initial_comp" class="block text-sm font-medium text-gray-700">Initial Complaint</label>
+                            <input type="text" id="initial_comp" name="initial_comp" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                        </div>
+                    </div>
+                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Add Temporary Complaint
+                    </button>
+                </form>
 
-                     <div class="row inner-tabs no-gutters mt-2">
-                       <div class="col-sm-3 pr-0">
-                         <ul id="nav-tabs-wrapper" class="nav nav-tabs nav-pills nav-stacked well">
-                           <li class="w-100"><a class="active show" href="#vtab1" data-toggle="tab">Nurse Assessment</a></li>
-                           <li class="w-100"><a href="#vtab2" data-toggle="tab">Vital Sing</a></li>
-                           <li class="w-100"><a href="#vtab3" data-toggle="tab">Allergies</a></li>
-                           <li class="w-100"><a href="#vtab4" data-toggle="tab">Current medication</a></li>
-                           <li class="w-100"><a href="#vtab5" data-toggle="tab">Presenting Complaint</a></li>
-                           <li class="w-100"><a href="#vtab6" data-toggle="tab">History and Examination</a></li>
-                           <li class="w-100"><a href="#vtab7" data-toggle="tab">Diagnosis</a></li>
-                           <li class="w-100"><a href="#vtab8" data-toggle="tab">Investigation/Procedure</a></li>
-                           <li class="w-100"><a href="#vtab9" data-toggle="tab">Prescription Medicine</a></li>
-                           <li class="w-100"><a href="#vtab10" data-toggle="tab">Advice</a></li>
-                           <li class="w-100"><a href="#vtab11" data-toggle="tab">Medical Certificate</a></li>
-                         </ul>
-                       </div>
-                       <div class="col-sm-9 border">
-                         <div class="tab-content p-1">
+                <div class="mt-6">
+                    <h3 class="text-lg font-medium text-gray-700 mb-3">Temporary Complaints Added:</h3>
+                    {% if present_complains %}
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200 rounded-md overflow-hidden">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Presenting Complaint</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Initial Complaint</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    {% for complaint in present_complains %}
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ complaint.presenting_comp }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ complaint.initial_comp }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <form method="post" action="" class="mt-4">
+                            {% csrf_token %}
+                            <input type="hidden" name="presenting_complaint_main" value="PresentingComplaintMain">
+                            {% for complaint in present_complains %}
+                                <input type="hidden" name="presenting_comp_sub" value="{{ complaint.presenting_comp }}">
+                                <input type="hidden" name="initial_comp_sub" value="{{ complaint.initial_comp }}">
+                            {% endfor %}
+                            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                Finalize Presenting Complaints
+                            </button>
+                        </form>
+                    {% else %}
+                        <p class="text-gray-500">No temporary presenting complaints added yet.</p>
+                    {% endif %}
+                </div>
 
-                           <div role="tabpanel" class="tab-pane active" id="vtab1">
-                             <form>
-                               <div class="form-group row no-gutters alert-primary p-2">
-                                 <label for="inputEmail3" class="col-sm-3 col-form-label">Nurse Forms</label>
-                                 <div class="col-sm-3 pr-2">
-                                   <select class="form-control" name="Select" value="Select">
-                                     <option> Select</option>
-                                     <option>ER Nurse Note</option>
-                                     <option>History and  Examination</option>
-                                     <option>Medical History</option>
-                                     <option>Social History</option>
-                                     <option>Triage/ Emergency Unit addmission Form 1</option>
-                                     <option>Triage/ Emergency Unit addmission Form 2</option>
-                                   </select>
-                                 </div>
-                                 <div class="col-sm-2">
-                                   <div class="butns d-flex">
-                                     <button type="button" class="bg-primary border-0 p-2 text-white icon-size" name="button"><i class="fa fa-hand-pointer" aria-hidden="true"></i></button>
-                                     <button type="button" class="bg-primary border-0 p-2 ml-2 text-white icon-size" name="button"><i class="fas fa-paint-brush"></i></button>
-                                   </div>
-                                 </div>
-                               </div>
-                             </form>
-                           </div>
+                <div class="mt-6">
+                    <h3 class="text-lg font-medium text-gray-700 mb-3">Finalized Presenting Complaints:</h3>
+                    {% if present_sub %}
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200 rounded-md overflow-hidden">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Presenting Complaint</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Initial Complaint</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    {% for complaint in present_sub %}
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ complaint.presenting_comp }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ complaint.initial_comp }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-gray-500">No finalized presenting complaints.</p>
+                    {% endif %}
+                </div>
+            </div>
 
-                           <div role="tabpanel" class="tab-pane " id="vtab2">
-                             <h3>Tab 2</h3>
-                           </div>
+            <!-- History and Examination Tab -->
+            <div id="history-examination" class="tab-content hidden">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">History & Examination</h2>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <input type="hidden" name="His_and_exam" value="HistoryAndExamination">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {% comment %} Assuming form fields are rendered by pm_form.as_p or similar for Django forms {% endcomment %}
+                        {% if history_diagnosis.first %}
+                            <div>
+                                <label for="general_examination" class="block text-sm font-medium text-gray-700">General Examination</label>
+                                <textarea id="general_examination" name="general_examination" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">{{ history_diagnosis.first.general_examination }}</textarea>
+                            </div>
+                            <div>
+                                <label for="Cardiovascular" class="block text-sm font-medium text-gray-700">Cardiovascular</label>
+                                <textarea id="Cardiovascular" name="Cardiovascular" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">{{ history_diagnosis.first.Cardiovascular }}</textarea>
+                            </div>
+                            <div>
+                                <label for="Respiration" class="block text-sm font-medium text-gray-700">Respiration</label>
+                                <textarea id="Respiration" name="Respiration" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">{{ history_diagnosis.first.Respiration }}</textarea>
+                            </div>
+                            <div>
+                                <label for="Past_Medical_Surgical" class="block text-sm font-medium text-gray-700">Past Medical/Surgical</label>
+                                <textarea id="Past_Medical_Surgical" name="Past_Medical_Surgical" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">{{ history_diagnosis.first.Past_Medical_Surgical }}</textarea>
+                            </div>
+                            <div>
+                                <label for="Musculoskeletal" class="block text-sm font-medium text-gray-700">Musculoskeletal</label>
+                                <textarea id="Musculoskeletal" name="Musculoskeletal" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">{{ history_diagnosis.first.Musculoskeletal }}</textarea>
+                            </div>
+                            <div>
+                                <label for="Family_History" class="block text-sm font-medium text-gray-700">Family History</label>
+                                <textarea id="Family_History" name="Family_History" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">{{ history_diagnosis.first.Family_History }}</textarea>
+                            </div>
+                            <div>
+                                <label for="Paediatric_History" class="block text-sm font-medium text-gray-700">Paediatric History</label>
+                                <textarea id="Paediatric_History" name="Paediatric_History" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">{{ history_diagnosis.first.Paediatric_History }}</textarea>
+                            </div>
+                            <div>
+                                <label for="Gynaec_Obstetric_History" class="block text-sm font-medium text-gray-700">Gynaec/Obstetric History</label>
+                                <textarea id="Gynaec_Obstetric_History" name="Gynaec_Obstetric_History" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">{{ history_diagnosis.first.Gynaec_Obstetric_History }}</textarea>
+                            </div>
+                            <div>
+                                <label for="Vaginal_Examination" class="block text-sm font-medium text-gray-700">Vaginal Examination</label>
+                                <textarea id="Vaginal_Examination" name="Vaginal_Examination" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">{{ history_diagnosis.first.Vaginal_Examination }}</textarea>
+                            </div>
+                        {% else %}
+                            <div>
+                                <label for="general_examination" class="block text-sm font-medium text-gray-700">General Examination</label>
+                                <textarea id="general_examination" name="general_examination" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></textarea>
+                            </div>
+                            <div>
+                                <label for="Cardiovascular" class="block text-sm font-medium text-gray-700">Cardiovascular</label>
+                                <textarea id="Cardiovascular" name="Cardiovascular" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></textarea>
+                            </div>
+                            <div>
+                                <label for="Respiration" class="block text-sm font-medium text-gray-700">Respiration</label>
+                                <textarea id="Respiration" name="Respiration" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></textarea>
+                            </div>
+                            <div>
+                                <label for="Past_Medical_Surgical" class="block text-sm font-medium text-gray-700">Past Medical/Surgical</label>
+                                <textarea id="Past_Medical_Surgical" name="Past_Medical_Surgical" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></textarea>
+                            </div>
+                            <div>
+                                <label for="Musculoskeletal" class="block text-sm font-medium text-gray-700">Musculoskeletal</label>
+                                <textarea id="Musculoskeletal" name="Musculoskeletal" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></textarea>
+                            </div>
+                            <div>
+                                <label for="Family_History" class="block text-sm font-medium text-gray-700">Family History</label>
+                                <textarea id="Family_History" name="Family_History" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></textarea>
+                            </div>
+                            <div>
+                                <label for="Paediatric_History" class="block text-sm font-medium text-gray-700">Paediatric History</label>
+                                <textarea id="Paediatric_History" name="Paediatric_History" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></textarea>
+                            </div>
+                            <div>
+                                <label for="Gynaec_Obstetric_History" class="block text-sm font-medium text-gray-700">Gynaec/Obstetric History</label>
+                                <textarea id="Gynaec_Obstetric_History" name="Gynaec_Obstetric_History" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></textarea>
+                            </div>
+                            <div>
+                                <label for="Vaginal_Examination" class="block text-sm font-medium text-gray-700">Vaginal Examination</label>
+                                <textarea id="Vaginal_Examination" name="Vaginal_Examination" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"></textarea>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="mt-6">
+                        <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Save History & Examination
+                        </button>
+                    </div>
+                </form>
+            </div>
 
-                           <div role="tabpanel" class="tab-pane" id="vtab3">
-                             <h3>Tab 3</h3>
-                           </div>
+            <!-- Diagnosis Tab -->
+            <div id="diagnosis" class="tab-content hidden">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">Diagnosis</h2>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <input type="hidden" name="diagno" value="DiagnosisTemp">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="diagnosis_text" class="block text-sm font-medium text-gray-700">Diagnosis</label>
+                            <input type="text" id="diagnosis_text" name="diagnosis" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                        </div>
+                        <div>
+                            <label for="diagnosis_id" class="block text-sm font-medium text-gray-700">Diagnosis ID (GRG Code)</label>
+                            <input type="text" id="diagnosis_id" name="diagnosis_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                        </div>
+                    </div>
+                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Add Temporary Diagnosis
+                    </button>
+                </form>
 
-                           <div role="tabpanel" class="tab-pane" id="vtab4">
-                             <div class="row">
-                               <h5 class="col-sm-6">Current Medication</h5>
-                               <div class="col-sm-6">
-                                 <form class="d-flex">
-                                   <div class="w-50">
-                                     <input type="radio" class="" id="current-medication">
-                                     <label class="" for="current-medication"> Current Medication</label>
-                                   </div>
-                                   <div class="w-50">
-                                     <input type="radio" class="" id="previous-medication">
-                                     <label class="" for="previous-medication"> Previous Medication</label>
-                                   </div>
-                                 </form>
-                               </div>
-                             </div>
+                <div class="mt-6">
+                    <h3 class="text-lg font-medium text-gray-700 mb-3">Temporary Diagnosis Added:</h3>
+                    {% if diagnosis %}
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200 rounded-md overflow-hidden">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Diagnosis</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">GRG Code</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    {% for diag in diagnosis %}
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ diag.diagnosis }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ diag.D_GRG_Code }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <form method="post" action="" class="mt-4">
+                            {% csrf_token %}
+                            <input type="hidden" name="diagnosis_main_b" value="DiagnosisMain">
+                            {% for diag in diagnosis %}
+                                <input type="hidden" name="diagnosis_main" value="{{ diag.diagnosis }}">
+                                <input type="hidden" name="D_GRG_Codes_main" value="{{ diag.D_GRG_Code }}">
+                            {% endfor %}
+                            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                Finalize Diagnosis
+                            </button>
+                        </form>
+                    {% else %}
+                        <p class="text-gray-500">No temporary diagnosis added yet.</p>
+                    {% endif %}
+                </div>
 
-                             <table class="table table-border">
-                               <tr style="background: #c0daf1;">
-                                 <th>Medication</th>
-                                 <th>Dosage</th>
-                                 <th>Frequency</th>
-                                 <th>Food Relation</th>
-                                 <th>Route</th>
-                                 <th>Prescribe Date</th>
-                                 <th>End Date</th>
-                                 <th>Visite Date</th>
-                                 <th>Stop</th>
-                               </tr>
-                               <tr>
-                                 <td>Acetazolamide Tablet 250g</td>
-                                 <td>4 Tablet (S)</td>
-                                 <td>2 Times a day</td>
-                                 <td>Before Lunch</td>
-                                 <td>Oral</td>
-                                 <td>11-07-2019</td>
-                                 <td>13-07-2019</td>
-                                 <td>11-07-2019</td>
-                                 <td><span class="btn-danger p-1"></span></td>
-                               </tr>
-                             </table>
-                           </div>
+                <div class="mt-6">
+                    <h3 class="text-lg font-medium text-gray-700 mb-3">Finalized Diagnosis:</h3>
+                    {% if diagnosis_sub %}
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200 rounded-md overflow-hidden">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Diagnosis</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">GRG Code</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    {% for diag in diagnosis_sub %}
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ diag.diagnosis }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ diag.D_GRG_Code }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-gray-500">No finalized diagnosis records.</p>
+                    {% endif %}
+                </div>
+            </div>
 
-                           <div role="tabpanel" class="tab-pane" id="vtab5">
-                             <h5 class="">Presenting Complaint</h5>
-                             <form>
-                               <div class="row">
-                                 <div class="col-sm-8  ">
-                                   <div class="form-group d-flex">
-                                     <input type="text" class="form-control " id="cold" placeholder="Cold">
-                                     <button type="submit" name="Submit" class="btn btn-primary ml-2"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                   </div>
-                                 </div>
-                               </div>
-                               <div class="form-group">
-                                 <textarea placeholder="fever" class="w-100 h-100 border rounded" style="min-height: 150px;"> </textarea>
+            <!-- Investigation and Procedure Tab -->
+            <div id="investigation-procedure" class="tab-content hidden">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">Investigation & Procedure</h2>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <input type="hidden" name="inves_proce" value="InvestigationAndProcedure">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 items-end">
+                        <div>
+                            <label for="investigation_and_procedure" class="block text-sm font-medium text-gray-700">Service Name</label>
+                            <select id="investigation_and_procedure" name="investigation_and_procedure" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                                <option value="">Select Service</option>
+                                {% for service in service_list %}
+                                    <option value="{{ service.service_id }}">{{ service.service_id }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="status" name="status" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded mr-2">
+                            <label for="status" class="text-sm font-medium text-gray-700">Status Active</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Add Investigation/Procedure
+                    </button>
+                </form>
 
-                               </div>
-                               <h5 class="">Initial Complaint</h5>
-                               <div class="form-group">
-                                 <textarea placeholder="fever" class="w-100 border rounded alert-secondary" style="min-height: 150px;"> </textarea>
-                               </div>
-                             </form>
-                           </div>
+                <div class="mt-6">
+                    <h3 class="text-lg font-medium text-gray-700 mb-3">Added Investigations & Procedures:</h3>
+                    {% if invest_and_proce_records %}
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200 rounded-md overflow-hidden">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    {% for record in invest_and_proce_records %}
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ record.investigation_and_procedure }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ record.status|yesno:"Active,Inactive" }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <form method="post" action="" class="mt-4">
+                            {% csrf_token %}
+                            <input type="hidden" name="to_opd" value="OPD_Billing">
+                            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Send to OPD Billing
+                            </button>
+                        </form>
+                    {% else %}
+                        <p class="text-gray-500">No investigations or procedures added yet.</p>
+                    {% endif %}
+                </div>
+            </div>
 
-                           <div role="tabpanel" class="tab-pane" id="vtab6">
-                             <form>
-                               <div class="form-group row">
-                                 <label for="general-examination" class="col-sm-3 col-form-label">General Examination</label>
-                                 <div class="col-sm-9">
-                                   <input type="email" class="form-control" id="general-examination" placeholder="">
-                                 </div>
-                               </div>
+            <!-- Prescription Medicine Tab -->
+            <div id="prescription-medicine" class="tab-content hidden">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">Prescription Medicine</h2>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <input type="hidden" name="pre_medicine_btn" value="Prescription_medicine">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                        <div>
+                            <label for="medical_list" class="block text-sm font-medium text-gray-700">Medicine</label>
+                            <select id="medical_list" name="medical_list" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                                <option value="">Select Medicine</option>
+                                {% for medicine in medical_list %}
+                                    <option value="{{ medicine.item_name }}" {% if pre_medicine.medicine == medicine.item_name %}selected{% endif %}>{{ medicine.item_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div>
+                            <label for="dosage" class="block text-sm font-medium text-gray-700">Dosage</label>
+                            <input type="text" id="dosage" name="dosage" value="{{ pre_medicine.dosage|default:'' }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                        </div>
+                        <div>
+                            <label for="frequency" class="block text-sm font-medium text-gray-700">Frequency</label>
+                            <input type="text" id="frequency" name="frequency" value="{{ pre_medicine.frequency|default:'' }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                        </div>
+                        <div>
+                            <label for="duration" class="block text-sm font-medium text-gray-700">Duration</label>
+                            <input type="text" id="duration" name="duration" value="{{ pre_medicine.duration|default:'' }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                        </div>
+                        <div>
+                            <label for="instructions" class="block text-sm font-medium text-gray-700">Instructions</label>
+                            <textarea id="instructions" name="instructions" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">{{ pre_medicine.instructions|default:'' }}</textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Save Prescription Medicine
+                    </button>
+                </form>
 
-                               <div class="form-group row">
-                                 <label for="cardiovascular" class="col-sm-3 col-form-label">Cardiovascular</label>
-                                 <div class="col-sm-9">
-                                   <input type="email" class="form-control" id="cardiovascular" placeholder="">
-                                 </div>
-                               </div>
+                <div class="mt-6">
+                    <h3 class="text-lg font-medium text-gray-700 mb-3">Prescribed Medicines:</h3>
+                    {% if recordsss %}
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200 rounded-md overflow-hidden">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Medicine</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dosage</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Frequency</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Instructions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    {% for record in recordsss %}
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ record.medicine }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ record.dosage }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ record.frequency }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ record.duration }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ record.instructions }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-gray-500">No prescribed medicines added yet.</p>
+                    {% endif %}
+                </div>
 
-                               <div class="form-group row">
-                                 <label for="respiration" class="col-sm-3 col-form-label">Respiration</label>
-                                 <div class="col-sm-9">
-                                   <input type="email" class="form-control" id="respiration" placeholder="">
-                                 </div>
-                               </div>
+                <form method="post" action="" class="mt-6">
+                    {% csrf_token %}
+                    <input type="hidden" name="prescription_report" value="report">
+                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                        Generate Prescription Report (PDF)
+                    </button>
+                </form>
+            </div>
 
-                               <div class="form-group row">
-                                 <label for="inputEmail3" class="col-sm-3 col-form-label">Past Medical/Surgical</label>
-                                 <div class="col-sm-9">
-                                   <input type="email" class="form-control" id="inputEmail3" placeholder="">
-                                 </div>
-                               </div>
+            <!-- Advice Tab -->
+            <div id="advice" class="tab-content hidden">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">Advice</h2>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <input type="hidden" name="advice" value="Advices">
+                    <div class="mb-4">
+                        <label for="advice_text" class="block text-sm font-medium text-gray-700">Advice</label>
+                        <textarea id="advice_text" name="advice" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">{% if advice.first %}{{ advice.first.advice }}{% endif %}</textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="follow_up_date" class="block text-sm font-medium text-gray-700">Follow-up Date</label>
+                        <input type="date" id="follow_up_date" name="follow_up_date" value="{% if advice.first %}{{ advice.first.follow_up_date|date:'Y-m-d' }}{% endif %}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="refer_to_emergency" name="refer_to_emergency" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded mr-2" {% if advice.first and "refer_to_emergency" in advice.first.follow_check_box %}checked{% endif %}>
+                            <label for="refer_to_emergency" class="text-sm font-medium text-gray-700">Refer to Emergency</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="refer_to_admission" name="refer_to_admission" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded mr-2" {% if advice.first and "refer_to_admission" in advice.first.follow_check_box %}checked{% endif %}>
+                            <label for="refer_to_admission" class="text-sm font-medium text-gray-700">Refer to Admission</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="visit_complete" name="visit_complete" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded mr-2" {% if advice.first and "visit_complete" in advice.first.follow_check_box %}checked{% endif %}>
+                            <label for="visit_complete" class="text-sm font-medium text-gray-700">Visit Complete</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="refer_to_mental_health" name="refer_to_mental_health" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded mr-2" {% if advice.first and "refer_to_mental_health" in advice.first.follow_check_box %}checked{% endif %}>
+                            <label for="refer_to_mental_health" class="text-sm font-medium text-gray-700">Refer to Mental Health</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Save Advice
+                    </button>
+                </form>
+            </div>
 
-                               <div class="form-group row">
-                                 <label for="musculoskeletal" class="col-sm-3 col-form-label">Musculoskeletal</label>
-                                 <div class="col-sm-9">
-                                   <input type="email" class="form-control" id="musculoskeletal" placeholder="">
-                                 </div>
-                               </div>
+            <!-- Medical Certificate Tab -->
+            <div id="medical-certificate" class="tab-content hidden">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">Medical Certificate</h2>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <input type="hidden" name="medical_certificate" value="MedicalCertificate">
+                    <div class="mb-4">
+                        <label for="template" class="block text-sm font-medium text-gray-700">Certificate Template</label>
+                        <input type="text" id="template" name="template" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                    </div>
+                    <div class="mb-4">
+                        <label for="authorize_dr" class="block text-sm font-medium text-gray-700">Authorized Doctor</label>
+                        <input type="text" id="authorize_dr" name="authorize_dr" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <input type="checkbox" id="finalized" name="finalized" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded mr-2">
+                        <label for="finalized" class="text-sm font-medium text-gray-700">Finalized</label>
+                    </div>
+                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Save Medical Certificate
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 
-                               <div class="form-group row">
-                                 <label for="family-history" class="col-sm-3 col-form-label">Family History</label>
-                                 <div class="col-sm-9">
-                                   <input type="email" class="form-control" id="family-history" placeholder="">
-                                 </div>
-                               </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
 
-                               <div class="form-group row">
-                                 <label for="paediatric" class="col-sm-3 col-form-label">Paediatric History</label>
-                                 <div class="col-sm-9">
-                                   <input type="email" class="form-control" id="paediatric" placeholder="">
-                                 </div>
-                               </div>
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Deactivate all buttons and hide all contents
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active', 'bg-blue-600', 'text-white');
+                        btn.classList.add('text-gray-600', 'hover:text-gray-800', 'hover:border-gray-300');
+                    });
+                    tabContents.forEach(content => {
+                        content.classList.add('hidden');
+                    });
 
-                               <div class="form-group row">
-                                 <label for="obstetric" class="col-sm-3 col-form-label">Gynaec/ Obstetric History</label>
-                                 <div class="col-sm-9">
-                                   <input type="email" class="form-control" id="obstetric" placeholder="">
-                                 </div>
-                               </div>
+                    // Activate the clicked button and show its content
+                    const tabId = button.dataset.tab;
+                    button.classList.add('active', 'bg-blue-600', 'text-white');
+                    button.classList.remove('text-gray-600', 'hover:text-gray-800', 'hover:border-gray-300');
+                    document.getElementById(tabId).classList.remove('hidden');
+                });
+            });
 
-                               <div class="form-group row">
-                                 <label for="vaginal-examination" class="col-sm-3 col-form-label">Vaginal Examination </label>
-                                 <div class="col-sm-9">
-                                   <input type="email" class="form-control" id="vaginal-examination" placeholder="">
-                                 </div>
-                               </div>
-                             </form>
-                           </div>
-
-                           <div role="tabpanel" class="tab-pane" id="vtab7">
-                             <h5 class="">Diagnosis</h5>
-                             <form class="form border-top  pt-3">
-                               <div class="form-group row">
-                                 <label for="general-examination" class="col-sm-2 col-form-label">Attendance</label>
-                                 <div class="col-sm-4">
-                                   <select name="select" value="" class="form-control">
-                                     <option>Emergency/Acute</option>
-
-                                   </select>
-                                 </div>
-                               </div>
-
-                               <div class="form-group row">
-                                 <label for="general-examination" class="col-sm-2 col-form-label">Type</label>
-                                 <div class="col-sm-4">
-                                   <select name="select" value="" class="form-control">
-                                     <option>Principal</option>
-                                   </select>
-                                 </div>
-
-                                 <label for="general-examination" class="col-sm-2 col-form-label">Category</label>
-                                 <div class="col-sm-4">
-                                   <select name="select" value="" class="form-control">
-                                     <option>Primary</option>
-                                   </select>
-                                 </div>
-                               </div>
-
-                               <div class="form-group row">
-                                 <label for="diagnosis" class="col-sm-2 col-form-label">Diagnosis</label>
-                                 <div class="col-sm-10">
-                                   <input type="text" class="form-control " id="diagnosis" placeholder="Search by Diagnosis ICD 10 -code">
-                                 </div>
-                               </div>
-                               <div class="form-group row">
-                                 <label for="GRG-Code" class="col-sm-2 col-form-label">D GRG-Code</label>
-                                 <div class="col-sm-4">
-                                   <input type="text" class="form-control " id="GRG-Code" placeholder="Search by Diagnosis ICD 10 -code">
-                                 </div>
-
-                                 <label for="ICD" class="col-sm-2 col-form-label">ICD - 10</label>
-                                 <div class="col-sm-4">
-                                   <input type="text" class="form-control " id="ICD" placeholder="ICD - 10">
-                                 </div>
-                               </div>
-
-                               <div class="form-group row">
-                                 <label for="general-examination" class="col-sm-2 col-form-label">State of Diagnosis</label>
-                                 <div class="col-sm-4">
-                                   <select name="select" value="" class="form-control">
-                                     <option>Principal</option>
-                                   </select>
-                                 </div>
-
-                                 <label for="general-examination" class="col-sm-2 col-form-label">Adverse Effect</label>
-                                 <div class="col-sm-4">
-                                   <select name="select" value="" class="form-control">
-                                     <option>Primary</option>
-                                   </select>
-                                 </div>
-                               </div>
-                             </form>
-
-                             <table class="table table-border">
-                               <tr style="background: #d1dae6;">
-                                 <th style="font-size: 11px;">SN</th>
-                                 <th style="font-size: 11px;">Attendance</th>
-                                 <th style="font-size: 11px;">Type</th>
-                                 <th style="font-size: 11px;">Category</th>
-                                 <th style="font-size: 11px;">Diagnosis</th>
-                                 <th style="font-size: 11px;">Visit Type</th>
-                                 <th style="font-size: 11px;">ICD - 10</th>
-                                 <th style="font-size: 11px;">D-GRG Code</th>
-                                 <th style="font-size: 11px;">Status fo Diagnosis</th>
-                                 <th style="font-size: 11px;">Adverse Effect</th>
-                                 <th style="font-size: 11px;">User Name</th>
-                               </tr>
-                               <tr>
-                                 <td colspan="11"></td>
-                               </tr>
-                             </table>
-                           </div>
-
-                           <div role="tabpanel" class="tab-pane" id="vtab8">
-                             <h5 class="">Investigation / Procedure</h5>
-                             <form class="form border-top  pt-3">
-                               <div class="form-group row">
-                                 <label for="general-examination" class="col-sm-3 col-form-label">Investigation and Procedure</label>
-                                 <div class="col-sm-4">
-                                   <input type="text" class="form-control " id="diagnosis" placeholder="Investigation / Procedure">
-                                 </div>
-                                 <div class="col-sm-3">Stat <input type="checkbox" name="checkbox"></div>
-                                 <div class="col-sm-2">
-                                   <div class="form-group butns text-right mb-0">
-                                     <button type="button" class="bg-primary border-0 p-2 text-white icon-size" name="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                     <button type="button" class="bg-primary border-0 p-2 text-white icon-size" name="button"><img src="{% static 'images/paintbrush.png' %}" width="16px"></button>
-                                   </div>
-                                 </div>
-                               </div>
-                             </form>
-
-                             <table class="table">
-                               <tr>
-                                 <th style="font-size: 11px;">SN</th>
-                                 <th style="font-size: 11px;">Investigation / Procedure</th>
-                                 <th style="font-size: 11px;">Result Status</th>
-                                 <th style="font-size: 11px;">Stat</th>
-                                 <th style="font-size: 11px;">OT Required</th>
-                               </tr>
-                               <tr>
-                                 <td colspan="5"></td>
-                               </tr>
-                             </table>
-                           </div>
-
-                           <div role="tabpanel" class="tab-pane" id="vtab9">
-                             <h5 class="">Prescription Medicine</h5>
-                             <form class="form border-top  pt-3">
-                               <div class="form-group row no-gutters">
-                                 <label for="Medicine" class="col-sm-2 col-form-label">Medicine</label>
-                                 <div class="col-sm-10">
-                                   <input type="text" class="form-control " id="Medicine" placeholder="">
-                                 </div>
-                               </div>
-
-
-                               <div class="form-group row no-gutters">
-                                 <label for="Dosage" class="col-sm-2 col-form-label">Dosage</label>
-                                 <div class="col-sm-2">
-                                   <input type="text" class="form-control " id="Dosage" placeholder="">
-                                 </div>
-                                 <div class="col-sm-2 pl-2">
-                                   <select name="select" value="" class="form-control">
-                                     <option>Select</option>
-                                   </select>
-                                 </div>
-
-                                 <label for="Frequency" class="col-sm-2 col-form-label text-center">Frequency</label>
-                                 <div class="col-sm-2">
-                                   <select name="select" value="" class="form-control">
-                                     <option>Select</option>
-                                   </select>
-                                 </div>
-                                 <div class="col-sm-1">
-                                   <input type="checkbox" class="form-control " id="" placeholder="">
-                                 </div>
-                               </div>
-
-                               <div class="form-group row no-gutters">
-                                 <label for="days" class="col-sm-2 col-form-label">No of Days</label>
-                                 <div class="col-sm-2">
-                                   <input type="text" class="form-control " id="days" placeholder="">
-                                 </div>
-                                 <div class="col-sm-2 pl-2">
-                                   <select name="select" value="" class="form-control">
-                                     <option>Days</option>
-                                   </select>
-                                 </div>
-
-                                 <label for="food-relations" class="col-sm-2 col-form-label text-center">Food Relations</label>
-                                 <div class="col-sm-4">
-                                   <select name="select" value="" class="form-control">
-                                     <option>Select</option>
-                                   </select>
-                                 </div>
-                               </div>
-
-                               <div class="form-group row no-gutters">
-                                 <label for="days" class="col-sm-2 col-form-label">Route</label>
-                                 <div class="col-sm-2">
-                                   <select name="select" value="" class="form-control">
-                                     <option>Select</option>
-                                   </select>
-                                 </div>
-                               </div>
-                               <div class="form-group row  no-gutters">
-                                 <label for="Instruction" class="col-sm-2 col-form-label">Instruction</label>
-                                 <div class="col-sm-8">
-                                   <input type="text" class="form-control " id="Instruction" placeholder="">
-                                 </div>
-                                 <div class="col-sm-2">
-                                   <div class="form-group butns text-right mb-0">
-                                     <button type="button" class="bg-primary border-0 p-2 text-white icon-size" name="button"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                     <button type="button" class="bg-primary border-0 p-2 text-white icon-size" name="button"><img src="{% static 'images/paintbrush.png' %}" width="16px"></button>
-                                   </div>
-                                 </div>
-                               </div>
-                             </form>
-
-                           </div>
-
-                           <div role="tabpanel" class="tab-pane" id="vtab10">
-                             <div class="row">
-                               <div class="col-sm-8  ">
-                                 <h5 class="">Advice </h5>
-                               </div>
-                               <div class="col-sm-4 text-right">
-                                 <button type="button" class="bg-primary border-0 p-2 text-white icon-size" name="button"><img src="{% static 'images/paintbrush.png' %}" width="16px"></button>
-                               </div>
-                             </div>
-                             <form class="border-top pt-2">
-
-                               <div class="form-group">
-                                 <textarea placeholder="fever" class="w-100 h-100 border rounded" style="min-height: 100px;"> </textarea>
-                               </div>
-
-                               <div class="row no-gutters">
-                                 <div class="col-sm-5 border p-3 rounded">
-                                   <div class="form-group row">
-                                     <label for="general-examination" class="col-sm-5 col-form-label">Follo-Up Date</label>
-                                     <div class="col-sm-7">
-                                       <input type="text" class="form-control " id="diagnosis" placeholder="Date(dd-mm-yyyy)">
-                                     </div>
-                                   </div>
-                                   <div class="custom-control custom-checkbox">
-                                     <input type="checkbox" class="custom-control-input" id="Emergency">
-                                     <label class="custom-control-label" for="Emergency">Refer to Emergency</label>
-                                   </div>
-
-                                   <div class="custom-control custom-checkbox mt-3">
-                                     <input type="checkbox" class="custom-control-input" id="Admission">
-                                     <label class="custom-control-label" for="Admission">Refer to Admission</label>
-                                   </div>
-
-                                   <div class="custom-control custom-checkbox mt-3">
-                                     <input type="checkbox" class="custom-control-input" id="visit-complete">
-                                     <label class="custom-control-label" for="visit-complete">Visit Complete</label>
-                                   </div>
-
-                                   <div class="custom-control custom-checkbox mt-3">
-                                     <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                     <label class="custom-control-label" for="mental-health">Refer to Mental Health</label>
-                                   </div>
-
-                                   <div class="custom-control custom-checkbox mt-3">
-                                     <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                     <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
-                                   </div>
-
-                                   <div class="custom-control custom-checkbox mt-3 mb-4">
-                                     <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                     <label class="custom-control-label" for="customCheck2">Check this custom checkbox</label>
-                                   </div>
-                                 </div>
-                                 <div class="col-sm-7 border rounded">
-
-                                 </div>
-                               </div>
-                             </form>
-                           </div>
-
-                           <div role="tabpanel" class="tab-pane p-2" id="vtab11">
-                             <h5 class="">Medical Certificate</h5>
-
-                             <div class="form-group row no-gutters">
-                               <label for="template" class="col-sm-2 col-form-label">Template</label>
-                               <div class="col-sm-3">
-                                 <select name="select" value="" class="form-control">
-                                   <option>In Patient Medical Certificate</option>
-                                   <option>Medical Examinations form</option>
-                                   <option>Out Patient Certificate</option>
-                                 </select>
-                               </div>
-                               <label for="Frequency" class="col-sm-2 col-form-label text-center">Frequency</label>
-                               <div class="col-sm-3">
-                                 <select name="select" value="" class="form-control">
-                                   <option>Select</option>
-                                 </select>
-                               </div>
-                               <div class="col-sm-1">
-                                 <input type="checkbox" class="form-control " id="" placeholder="">
-                               </div>
-                             </div>
-                           </div>
-
-
-                         </div>
-                       </div>
-                     </div>
-                   </div>
-             </div>
-         </div>
-     </div>
-
-             </div>
-         </div>
-
-
-    {% endblock  %}
+            // Set initial active tab (Presenting Complaints)
+            const initialTab = document.querySelector('.tab-button[data-tab="presenting-complaints"]');
+            if (initialTab) {
+                initialTab.click();
+            }
+        });
+    </script>
+</body>
+</html>

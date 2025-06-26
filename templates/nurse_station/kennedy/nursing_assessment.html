@@ -16,6 +16,14 @@
              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding: 10px;">
                  <div class="page-header row align-items-center">
                    <h3 class="pageheader-title col-sm-4"><b>Consultant</b></h3>
+                   {% if uhid and visit_id and bill_id %}
+<a href="{% url 'order_entry_detail' data=uhid|add:"~"|add:visit_id|add:"~"|add:bill_id %}"
+   class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+    Go to Order Entry (with current patient ID)
+</a>
+{% else %}
+    <p class="text-gray-500 text-sm">Order Entry link available after patient context is loaded.</p>
+{% endif %}
                    <div class="col-sm-8 text-right d-flex align-items-center justify-content-end">
                      <ul class="d-flex align-items-center" style="list-style: none;">
                        <li class="pl-2 pr-2" style="color: #276b8c;"><strong>UHID: <span style="color: #524562;">{{uhid}}</span></strong></li>

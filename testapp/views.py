@@ -2847,9 +2847,10 @@ def register_card(request):
 @login_required(login_url='/user_login')
 def patient_visit(request):
     return render(request,'clinical/patient_visit.html')
-@login_required(login_url='/user_login')
-def nursing_assessment(request):
-    return render(request,'clinical/nursing_assessment.html')
+
+# @login_required(login_url='/user_login')
+# def nursing_assessment(request):
+#     return render(request,'clinical/nursing_assessment.html')
 
 # Implementing Messages..
 
@@ -2878,6 +2879,7 @@ def search_address(request):
                     payload.append(str(fake_address_obj.package_id))
                 print('payload--------,', payload)
     return JsonResponse({'status':200,'data':payload})
+
 # def search_address(request):
 #     service_name=request.GET.get('service_name')
 #     payload=[]
@@ -4468,7 +4470,10 @@ def visit_dashboard(request):
         'pat_name':'Select first_name from testapp_patientsregistrationsallinone where uhid=testapp_opdbillingmain.uhid',
         'pat_age':'Select age from testapp_patientsregistrationsallinone where uhid=testapp_opdbillingmain.uhid',
     }).filter(location=request.location).order_by("-id").exclude(bill_id__in=VitalSign.objects.values('bill_id'))
-    print('record1',records[0].pat_name)
+    if records:
+        print('record1', records[0].pat_name)
+    else:
+        print('No records found')
     pending_patient=records.count()
     if searching_uhid is not None:
         records = OpdBillingMain.objects.filter(Q(uhid__exact=searching_uhid)|Q(bill_no__exact=searching_uhid)).extra(select={
@@ -4479,6 +4484,7 @@ def visit_dashboard(request):
         'records':records,'pending_patient':pending_patient
     }
     return render(request,'nurse_station/kennedy/visit_dashboard.html',context)
+
 # This is patient Visit...............
 # =====================Clinical Management====================
 
@@ -4733,6 +4739,12 @@ def diagnosis_master(request):
 #========================== Kennedy code 13/03/2023 =====================================
 @login_required(login_url='/user_login')
 #========================== Kennedy code 13/03/2023 =====================================
+
+@login_required(login_url='/user_login')
+def nursing_assessment_simple(request):
+    # return render(request,'nurse_station/kennedy/nursing_assessment.html')
+    return render(request, 'nurse_station/kennedy/nursing_assessment.html')
+
 def nursing_assessment(request,data):
     from django.shortcuts import get_object_or_404
     print('datasss,',data)
