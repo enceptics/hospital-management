@@ -166,8 +166,8 @@ RAZORPAY_API_SECRET_KEY='N0kHcCLagthKdQXP4PDf4EfH'
 #Email Configurations
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT=587
-EMAIL_HOST_USER= 'gohilaljcet@gmail.com'
-EMAIL_HOST_PASSWORD= 'mtbfybqkckfuskxu'
+EMAIL_HOST_USER= 'intellima.tech@gmail.com'
+EMAIL_HOST_PASSWORD= 'ofmxdzynhnligoxy'
 EMAIL_USE_TLS=True
 SESSION_EXPIRE_SECONDS = 86400
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
